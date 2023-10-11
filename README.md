@@ -374,3 +374,9 @@ atlanta.nome = 'atlanta' # Agora esta atribuição sempre será titulada, pois e
 print(f'Nome: {atlanta.nome} - Ano: {atlanta.ano} '
       f'- Temporadas: {atlanta.temporadas} - Likes: {atlanta.likes}')
 ```
+
+# Explicando a herança
+Benefícios da herança:
+1. reúso de atributos e métodos (não é necessário redeclarar dados e comportamento nas classes filhas);
+2. extensão por meio da sobre-escrita de métodos (no exemplo, o método construtor das classes filha usa o construtor da classe mãe e adiciona atribuições inexistentes na classe mãe);
+3. atributos e métodos específicos se limitam à classse específica (a classe mãe e as classes irmãs não precisam conhecer o código da classe filha atual).

@@ -31,13 +31,11 @@ class Serie(Programa):
 
 vingadores = Filme('Vingadores - Guerra Infinta', 2018, 160)
 vingadores.dar_like()
-print(f'Nome: {vingadores.nome} - Ano: {vingadores.ano} '
-      f'- Duração: {vingadores.duracao} - Likes: {vingadores.likes}')
+print(f'{vingadores.nome} - {vingadores.duracao} - {vingadores.likes}')
 
 
 atlanta = Serie('Atlanta', 2018, 2)
 atlanta.dar_like()
 atlanta.dar_like()
 atlanta.nome = 'atlanta' # Agora esta atribuição sempre será titulada, pois está encapsulada.
-print(f'Nome: {atlanta.nome} - Ano: {atlanta.ano} '
-      f'- Temporadas: {atlanta.temporadas} - Likes: {atlanta.likes}')
+print(f'{atlanta.nome} - {atlanta.temporadas} - {atlanta.likes}')
