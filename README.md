@@ -234,3 +234,93 @@ print(f'Tamanho CPF na instância: {p.tamanho_cpf}')
 print(f'Tamanho CPF na classe: {Pessoa.tamanho_cpf}')
 print(f'Tamanho CPF na classe: {p.__class__.tamanho_cpf}')
 ```
+# Removendo duplicação
+Em Python, a herança é declarada sufixando entre parenteses o nome da classe extendida:
+```python
+classe Filha(Mae):
+    def __init__(self, atributo_especifico)
+    super().__init__(atributo_geral)
+    self.atributo_especifico = atributo_especifico
+``` 
+## Name mangling
+No Python, os atributos privados não são herdados. Isso acontece por causa do `name mangling` (ou `name decoration`), uma forma de mudar o nome de atributos privados para o padrão `_Classe__atributo` no Python.
+
+Exemplo da classe `Filme`:
+```python
+class Filme(Programa):
+    def __init__(self, nome, ano, duracao) -> None:
+        self.__nome = nome.title()
+        self.ano = ano
+        self.__likes = 0
+        self.duracao = duracao
+
+# Resto do código
+
+vingadores = Filme('Vingadores - Guerra Infinta', 2018, 160)
+vingadores.dar_like()
+print(f'Nome: {vingadores.nome} - Ano: {vingadores.ano} '
+      f'- Duração: {vingadores.duracao} - Likes: {vingadores.likes}')
+```
+A saída desse programa será: 
+```
+PS D:\alura\python-avancando-oo> python .\modelo.py
+Traceback (most recent call last):
+  File "D:\alura\python-avancando-oo\modelo.py", line 37, in <module>        
+    vingadores.dar_like()
+  File "D:\alura\python-avancando-oo\modelo.py", line 12, in dar_like        
+    self.__likes += 1
+    ^^^^^^^^^^^^
+AttributeError: 'Filme' object has no attribute '_Programa__likes'
+```
+
+Uma maneira de contornar o `name mangling` é mudar os nomes das propriedades privadas, prefixando com um único underscore ao invés de dois (note os atributos `_nome` e `_likes` no código do arquivo `modelo.py`):
+```python
+class Programa:
+    def __init__(self, nome, ano) -> None:
+        self._nome = nome.title()
+        self.ano = ano
+        self._likes = 0
+
+    @property
+    def likes(self):
+        return self._likes
+
+    def dar_like(self):
+        self._likes += 1
+
+    @property
+    def nome(self):
+        return self._nome
+    
+    @nome.setter
+    def nome(self, novo_nome):
+        self._nome = novo_nome.title()
+    
+class Filme(Programa):
+    def __init__(self, nome, ano, duracao) -> None:
+        self._nome = nome.title()
+        self.ano = ano
+        self._likes = 0
+        self.duracao = duracao
+
+class Serie(Programa):
+    def __init__(self, nome, ano, temporadas) -> None:
+        self._nome = nome.title()
+        self.ano = ano
+        self._likes = 0
+        self.temporadas = temporadas
+
+vingadores = Filme('Vingadores - Guerra Infinta', 2018, 160)
+vingadores.dar_like()
+print(f'Nome: {vingadores.nome} - Ano: {vingadores.ano} '
+      f'- Duração: {vingadores.duracao} - Likes: {vingadores.likes}')
+
+
+atlanta = Serie('Atlanta', 2018, 2)
+atlanta.dar_like()
+atlanta.dar_like()
+atlanta.nome = 'atlanta' # Agora esta atribuição sempre será titulada, pois está encapsulada.
+print(f'Nome: {atlanta.nome} - Ano: {atlanta.ano} '
+      f'- Temporadas: {atlanta.temporadas} - Likes: {atlanta.likes}')
+```
+> O código volta a funcionar, mas há um problema: a duplicação das variáveis `_nome` e `_likes` nas classes mãe e filha. Como resolver?
