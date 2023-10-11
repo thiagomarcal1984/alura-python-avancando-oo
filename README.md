@@ -485,3 +485,32 @@ Vingadores - Guerra Infinta - 2018 - 160 min - 1 Likes
 Atlanta - 2018 - 2 temporadas - 2 Likes
 ```
 > Note que não é mais necessário inserir o `if` dentro do `for`: o método `imprime(self)`, devido ao seu polimorfismo, exibe informações diferentes a depender do tipo de objeto que está sendo impresso.
+
+# Representação textual de objetos
+Há um método especial (dunder method) chamado `__str__(self)` que serve para representar o objeto como string. O método `imprime(self)` será substituído por este dunder method.
+
+```python
+class Programa:
+    # Resto do código
+    def __str__(self):
+        return f'{self.nome} - {self.ano} - {self.likes} Likes'
+
+    
+class Filme(Programa):
+    # Resto do código
+    def __str__(self):
+        return f'{self.nome} - {self.ano} - {self.duracao} min - {self.likes} Likes'
+
+class Serie(Programa):
+    # Resto do código
+    def __str__(self):
+        return f'{self.nome} - {self.ano} - {self.temporadas} temporadas - {self.likes} Likes'
+
+# Resto do código 
+
+filmes_e_series = [vingadores, atlanta]
+
+for programa in filmes_e_series:
+    print(programa)
+```
+> O dunder method `__repr__(self)` é semelhante ao `__str__(self)`. A diferença dos dois é semântica: `repr()` é uma representação imprimível do objeto que o torne inconfundível, enquanto `str()` é uma representação legível para humanos.
