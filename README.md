@@ -436,3 +436,52 @@ for programa in filmes_e_series:
     detalhes = programa.duracao if hasattr(programa, 'duracao') else programa.temporadas
     print(f'{programa.nome} - {detalhes} - {programa.likes}')
 ```
+
+# Reduzindo ifs
+Uma forma de reduzir os ifs é declarar um método na superclasse e redefinir (sobreescrever) esse método nas classes filhas. Neste caso, vamos implementar o método `imprime(self)`:
+
+```python
+class Programa:
+    def __init__(self, nome, ano) -> None:
+        # Resto do código
+
+    def imprime(self):
+        print(f'{self.nome} - {self.ano} - {self.likes} Likes')
+
+    
+class Filme(Programa):
+    def __init__(self, nome, ano, duracao) -> None:
+        super().__init__(nome, ano)
+        self.duracao = duracao
+
+    def imprime(self):
+        print(f'{self.nome} - {self.ano} - {self.duracao} min - {self.likes} Likes')
+
+class Serie(Programa):
+    def __init__(self, nome, ano, temporadas) -> None:
+        super().__init__(nome, ano)
+        self.temporadas = temporadas
+
+    def imprime(self):
+        print(f'{self.nome} - {self.ano} - {self.temporadas} temporadas - {self.likes} Likes')
+
+vingadores = Filme('Vingadores - Guerra Infinta', 2018, 160)
+vingadores.dar_like()
+
+atlanta = Serie('Atlanta', 2018, 2)
+atlanta.dar_like()
+atlanta.dar_like()
+
+filmes_e_series = [vingadores, atlanta]
+
+for programa in filmes_e_series:
+    programa.imprime()
+```
+
+Resultado do programa:
+```
+PS D:\alura\python-avancando-oo> python .\modelo.py
+Vingadores - Guerra Infinta - 2018 - 160 min - 1 Likes
+Atlanta - 2018 - 2 temporadas - 2 Likes
+```
+> Note que não é mais necessário inserir o `if` dentro do `for`: o método `imprime(self)`, devido ao seu polimorfismo, exibe informações diferentes a depender do tipo de objeto que está sendo impresso.
