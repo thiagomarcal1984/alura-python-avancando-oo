@@ -417,3 +417,22 @@ Note que, no caso acima, não precisamos passar nenhum primeiro argumento fixo p
 Sempre que você usar métodos estáticos em classes que contém herança, observe se não está tentando acessar alguma informação da classe a partir do método estático, pois isso pode dar algumas dores de cabeça pra entender o motivo dos problemas.
 
 Alguns pythonistas não aconselham o uso do `@staticmethod`, já que poderia ser substituído por uma simples função no corpo do módulo. Outros mais puristas entendem que os métodos estáticos fazem sentido, sim, e que devem ser vistos como responsabilidade das classes.
+
+# Polimorfismo
+Objetos que compartilham a mesma classe mãe apresentam formas diferentes de se comportar. Por isso que a herança possibilita o polimorfismo.
+
+As classes `Filme` e `Serie` compartilham os getters para nome e likes. Então esses getters podem ser chamados sem quaisquer testes.
+
+Mas duração (atributo de Filme) e temporadas (atributo de Série) são detalhes específicos de cada uma dessas classes. Para exibi-los, seria necessário testá-los com um `if`.
+
+O Python dispõe de um operador ternário com estrutura `<resultado_se_verdadeiro> if <boolean> else <resultado_se_falso>`. No exemplo, usaremos uma função que testa a existência de um atributo (a função `hasattr(objeto, 'nome_do_atributo')`).
+
+Código do arquivo `modelo.py`:
+```python
+# Resto do código
+filmes_e_series = [vingadores, atlanta]
+
+for programa in filmes_e_series:
+    detalhes = programa.duracao if hasattr(programa, 'duracao') else programa.temporadas
+    print(f'{programa.nome} - {detalhes} - {programa.likes}')
+```
