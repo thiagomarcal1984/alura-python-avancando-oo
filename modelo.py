@@ -39,14 +39,29 @@ class Serie(Programa):
     def __str__(self):
         return f'{self.nome} - {self.ano} - {self.temporadas} temporadas - {self.likes} Likes'
 
+class Playlist:
+    def __init__(self, nome, programas):
+        self.nome = nome
+        self.programas = programas
+
+    def tamanho(self):
+        return len(self.programas)
+
 vingadores = Filme('Vingadores - Guerra Infinta', 2018, 160)
-vingadores.dar_like()
-
 atlanta = Serie('Atlanta', 2018, 2)
-atlanta.dar_like()
-atlanta.dar_like()
+tmep = Filme('Todo mundo em pânico', 1999, 100)
+demolidor = Serie('Demolidor', 2016, 2)
 
-filmes_e_series = [vingadores, atlanta]
+vingadores.dar_like()
+[tmep.dar_like() for i in range(4)]
+[demolidor.dar_like() for i in range(2)]
+[atlanta.dar_like() for i in range(3)]
 
-for programa in filmes_e_series:
+filmes_e_series = [vingadores, atlanta, demolidor, tmep]
+
+playlist_fim_de_semana = Playlist('fim de semana', filmes_e_series)
+
+for programa in playlist_fim_de_semana.programas:
+    # Note que para iterarmos na playlist,
+    # precisaríamos conhecer o atributo 'programas'.
     print(programa)

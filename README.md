@@ -547,3 +547,38 @@ print(repr(lista))
 ```
 
 Se pegarmos o resultado do print, conseguimos recriar o objeto lista.
+
+# Criando a playlist
+Código do arquivo `modelo.py`:
+```python
+# Resto do código
+
+class Playlist:
+    def __init__(self, nome, programas):
+        self.nome = nome
+        self.programas = programas
+
+    def tamanho(self):
+        return len(self.programas)
+
+vingadores = Filme('Vingadores - Guerra Infinta', 2018, 160)
+atlanta = Serie('Atlanta', 2018, 2)
+tmep = Filme('Todo mundo em pânico', 1999, 100)
+demolidor = Serie('Demolidor', 2016, 2)
+
+vingadores.dar_like()
+[tmep.dar_like() for i in range(4)]
+[demolidor.dar_like() for i in range(2)]
+[atlanta.dar_like() for i in range(3)]
+
+filmes_e_series = [vingadores, atlanta, demolidor, tmep]
+
+playlist_fim_de_semana = Playlist('fim de semana', filmes_e_series)
+
+for programa in playlist_fim_de_semana.programas:
+    # Note que para iterarmos na playlist,
+    # precisaríamos conhecer o atributo 'programas'.
+    print(programa)
+```
+
+Para aumentar o encapsulamento da classe `Playlist`, seria interessante não permitir o acesso ao atributo interno `programas`. A classe `Playlist` também poderia estender algum objeto iterável.
