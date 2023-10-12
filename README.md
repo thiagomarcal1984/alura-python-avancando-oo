@@ -582,3 +582,34 @@ for programa in playlist_fim_de_semana.programas:
 ```
 
 Para aumentar o encapsulamento da classe `Playlist`, seria interessante não permitir o acesso ao atributo interno `programas`. A classe `Playlist` também poderia estender algum objeto iterável.
+
+# Reaproveitando um list
+Existe o tipo `list`, que na verdade é uma classe que implementa `iterable`!
+
+Assim, podemos estender a classe `list` para herdar alguns comportamentos
+
+```python
+class Playlist(list):
+    def __init__(self, nome, programas = []):
+        self.nome = nome
+        super().__init__(programas)
+
+#Resto do código
+playlist_fim_de_semana = Playlist('fim de semana')
+
+# Note o reúso do método 'append'.
+playlist_fim_de_semana.append(vingadores)
+playlist_fim_de_semana.append(atlanta)
+playlist_fim_de_semana.append(demolidor)
+playlist_fim_de_semana.append(tmep)
+
+# Note o reúso do comportamento de um list ao invocarmos o método 'len()'.
+print(f'Tamanho da playlist: {len(playlist_fim_de_semana)}.\n')
+
+# Mais um reúso: o comportamento da playlist como iterable.
+for programa in playlist_fim_de_semana:
+    print(programa)
+
+# Outro reúso: a função 'in' testa existência de uma instância na lista.
+print(f'Tá ou não tá? {demolidor in playlist_fim_de_semana}.')
+```
