@@ -613,3 +613,33 @@ for programa in playlist_fim_de_semana:
 # Outro reúso: a função 'in' testa existência de uma instância na lista.
 print(f'Tá ou não tá? {demolidor in playlist_fim_de_semana}.')
 ```
+
+# Fugindo da complexidade
+Uma desvantagem da herança: a classe estendida pode ter muitos métodos e atributos desconhecidos pelo desenvolvedor. Há o risco de esses métodos e atributos serem sobre-escritos, e assim a classe filha deixa de funcionar corretamente.
+
+Modificação do código do arquivo `modelo.py`, após remover a herança e inserir métodos para a lista e o tamanho da lista:
+```python
+class Playlist:
+    def __init__(self, nome, programas):
+        self.nome = nome
+        self.__programas = programas
+
+    @property
+    def listagem(self):
+        return self.__programas
+
+    @property
+    def tamanho(self):
+        return len(self.__programas)
+
+# Resto do código
+filmes_e_series = [vingadores, atlanta, demolidor, tmep]
+
+playlist_fim_de_semana = Playlist('fim de semana', filmes_e_series)
+
+print(f'Tamanho da playlist: {playlist_fim_de_semana.tamanho}.\n')
+
+# Mais um reúso: o comportamento da playlist como iterable.
+for programa in playlist_fim_de_semana.listagem:
+    print(programa)
+```

@@ -39,10 +39,18 @@ class Serie(Programa):
     def __str__(self):
         return f'{self.nome} - {self.ano} - {self.temporadas} temporadas - {self.likes} Likes'
 
-class Playlist(list):
-    def __init__(self, nome, programas = []):
+class Playlist:
+    def __init__(self, nome, programas):
         self.nome = nome
-        super().__init__(programas)
+        self.__programas = programas
+
+    @property
+    def listagem(self):
+        return self.__programas
+
+    @property
+    def tamanho(self):
+        return len(self.__programas)
 
 vingadores = Filme('Vingadores - Guerra Infinta', 2018, 160)
 atlanta = Serie('Atlanta', 2018, 2)
@@ -54,19 +62,12 @@ vingadores.dar_like()
 [demolidor.dar_like() for i in range(2)]
 [atlanta.dar_like() for i in range(3)]
 
-playlist_fim_de_semana = Playlist('fim de semana')
-# Note o reúso do método 'append'.
-playlist_fim_de_semana.append(vingadores)
-playlist_fim_de_semana.append(atlanta)
-playlist_fim_de_semana.append(demolidor)
-playlist_fim_de_semana.append(tmep)
+filmes_e_series = [vingadores, atlanta, demolidor, tmep]
 
-# Note o reúso do comportamento de um list ao invocarmos o método 'len()'.
-print(f'Tamanho da playlist: {len(playlist_fim_de_semana)}.\n')
+playlist_fim_de_semana = Playlist('fim de semana', filmes_e_series)
+
+print(f'Tamanho da playlist: {playlist_fim_de_semana.tamanho}.\n')
 
 # Mais um reúso: o comportamento da playlist como iterable.
-for programa in playlist_fim_de_semana:
+for programa in playlist_fim_de_semana.listagem:
     print(programa)
-
-# Outro reúso: a função 'in' testa existência de uma instância na lista.
-print(f'Tá ou não tá? {demolidor in playlist_fim_de_semana}.')
