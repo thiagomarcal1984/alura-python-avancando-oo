@@ -643,3 +643,24 @@ print(f'Tamanho da playlist: {playlist_fim_de_semana.tamanho}.\n')
 for programa in playlist_fim_de_semana.listagem:
     print(programa)
 ```
+# Se anda como um pato...
+O comportamento iterável de um objeto pode ser (re)definido por meio do dunder method `__getitem__(self, item)`. Isso permite que o objeto que implementa esse dunder method use o operador `in` e a iteração com o laço `for`.
+
+```python
+class Playlist:
+    # Resto do código
+    def __getitem__(self, item):
+        return self.__programas[item]
+
+# Resto do código
+
+for programa in playlist_fim_de_semana:
+    print(programa)
+
+print(vingadores in playlist_fim_de_semana[1:]) # False
+print(playlist_fim_de_semana[0]) # Mostra somente o filme Vingadores.
+```
+
+> Não importa se o objeto dentro do for é ou não uma lista. Se ela faz tudo que uma lista faz (é percorrível com for, pode ter seus itens acessados isoladamente, pode ser fatiada etc), ela é uma lista (mesmo que não herde de lista).
+> 
+> Duck typing: Se anda como pato, voa como pato e nada como um pato, é um pato.
