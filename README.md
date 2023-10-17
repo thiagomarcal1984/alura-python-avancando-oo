@@ -664,3 +664,23 @@ print(playlist_fim_de_semana[0]) # Mostra somente o filme Vingadores.
 > Não importa se o objeto dentro do for é ou não uma lista. Se ela faz tudo que uma lista faz (é percorrível com for, pode ter seus itens acessados isoladamente, pode ser fatiada etc), ela é uma lista (mesmo que não herde de lista).
 > 
 > Duck typing: Se anda como pato, voa como pato e nada como um pato, é um pato.
+
+# Modelo de dados Python
+Para adicionar o comportamento de sizeable (para usar a playlist como parâmetro da função `len`), implementamos o magic/dunder method `__len__(self)`:
+```python
+class Playlist:
+    # Resto do código
+    def __len__(self):
+        return len(self.__programas)
+
+# Resto do código 
+playlist_fim_de_semana = Playlist('fim de semana', filmes_e_series)
+
+print(f'Tamanho da playlist: {len(playlist_fim_de_semana)}.\n')
+```
+## Python Data Model
+Há alguns magic/dunder methods que compõem os objetos do Python. Eis os mais comuns:
+1. Inicialização: `__init__`;
+2. Representação: `__str__`, `__repr__`;
+3. Container/sequência: `__contains__`, `__iter__`, `__len__`, `__getitem__`;
+4. Numéricos: `__add__`, `__sub__`, `__mul__`, `__mod__`.
