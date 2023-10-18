@@ -820,3 +820,26 @@ Mas existe o conceito de "Good head" para a varrer a ordem de herança. A classe
 Assim, o Python 3 procura `Funcionario` depois: `Pleno -> Caelum -> Alura -> Funcionario`.
 
 O algoritmo do MRO é bem complexo, mas a essência é essa.
+
+# Mixin
+Mixins são classes com pouco comportamento, que serve apenas para reúso. A preocupação dos mixins é o reúso de comportamento, e não o estabelecimento de uma estrutura padrão pras subclasses.
+
+Loggers servem como excelentes mixins.
+
+Exemplo do arquivo `funcionarios.py`:
+```python
+class Funcionario: # Superclasse.
+    def __init__(self, nome):
+        self.nome = nome
+    # Resto do código
+
+class Hipster: # Mixin.
+    def __str__(self):
+        return f'Hipster, {self.nome}'
+
+class Senior(Alura, Caelum, Hipster):
+    pass
+
+luan = Senior('Luan')
+print(luan) # Imprime 'Hipster, Luan'.
+```
