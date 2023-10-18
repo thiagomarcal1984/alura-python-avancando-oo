@@ -684,3 +684,52 @@ Há alguns magic/dunder methods que compõem os objetos do Python. Eis os mais c
 2. Representação: `__str__`, `__repr__`;
 3. Container/sequência: `__contains__`, `__iter__`, `__len__`, `__getitem__`;
 4. Numéricos: `__add__`, `__sub__`, `__mul__`, `__mod__`.
+
+# Classes abstratas ou ABCs
+Existe no Python o pacote `abc` que contém o objeto `ABC`. Sim, existe esse pacote e essa classe, e eles representam uma `Abstract Base Class`.
+
+Outros pacotes também tem os pacotes `abc`, como `collections` ou `numbers`.
+
+Exemplo de ABC de `collections` (arquivo `playlist.py`):
+
+```python
+from abc import ABC
+from collections.abc import MutableSequence
+
+class Playlist(MutableSequence):
+    pass
+
+# A criação do objeto abaixo vai apresentar o seguinte erro:
+# TypeError: Can't instantiate abstract class Playlist with abstract 
+# methods __delitem__, __getitem__, __len__, __setitem__, insert
+# filmes = Playlist()
+
+class Playlist(MutableSequence):
+    def __getitem__(self, item):
+        super().__getitem__(item) # Força reúso do método da superclasse.
+
+    def __setitem__(self, item):
+        super().__setitem__(item) # Força reúso do método da superclasse.
+
+    def __len__(self):
+        super().__setitem__() # Força reúso do método da superclasse.
+
+# A criação do objeto abaixo vai apresentar o seguinte erro:
+# TypeError: Can't instantiate abstract class Playlist with abstract 
+# methods __delitem__, insert
+
+filmes = Playlist()
+# Note que o erro não fala mais dos dunder methods __getitem__, __setitem__ e __len__.
+```
+Exemplo de ABC de `numbers` (arquivo `numero_complexo.py`):
+```python
+from numbers import Complex
+class Numero(Complex):
+    pass
+
+# A criação do objeto abaixo vai apresentar o seguinte erro:
+# TypeError: Can't instantiate abstract class Numero with abstract 
+# methods __abs__, __add__, __complex__, __eq__, __mul__, __neg__, __pos__, 
+# __pow__, __radd__, __rmul__, __rpow__, __rtruediv__, __truediv__, conjugate, imag, real
+num = Numero()
+```
