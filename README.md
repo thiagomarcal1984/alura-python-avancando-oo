@@ -807,3 +807,16 @@ luan.busca_cursos_do_mes()
 luan.mostrar_tarefas() 
 # Mostra 'Fez muita coisa, Caelumer'.
 ```
+
+# Resolução de métodos
+Do inglês Method Resolution Order (MRO).
+
+Vamos supor que um método está sendo procurado na classe `Pleno`. A ordem de busca é a própria classe, seguida do primeiro ancestral, seguida dos ancestrais do primeiro ancestral, seguida do segundo ancestral, seguida dos ancestrais do segundo ancestral e assim por diante.
+
+Por exemplo: `Pleno -> Caelum -> Funcionario -> Alura -> Funcionario`.
+
+Mas existe o conceito de "Good head" para a varrer a ordem de herança. A classe `Funcionario`, por exemplo, não é uma boa cabeça porque ela é mãe de `Caelum` e `Alura`, as mães. 
+
+Assim, o Python 3 procura `Funcionario` depois: `Pleno -> Caelum -> Alura -> Funcionario`.
+
+O algoritmo do MRO é bem complexo, mas a essência é essa.
