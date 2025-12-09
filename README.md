@@ -77,3 +77,23 @@ class Bebida(ItemCardapio): # ou
     def __str__(self):
         return self._nome
 ```
+# Polimorfismo e método abstrato
+## Métodos para adicionar itens
+Vamos criar métodos na classe `Restaurante` para acrescentas pratos e bebidas:
+
+```python
+# modelos/restaurante.py
+class Restaurante:
+    restaurantes = []
+
+    def __init__(self, nome, categoria):
+        # Resto do código
+        self._cardapio = []
+        # Resto do código
+
+    def adicionar_bebida_no_cardapio(self, bebida):
+        self._cardapio.append(bebida)
+
+    def adicionar_prato_no_cardapio(self, prato):
+        self._cardapio.append(prato)
+```
