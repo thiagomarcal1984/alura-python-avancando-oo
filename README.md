@@ -97,3 +97,23 @@ class Restaurante:
     def adicionar_prato_no_cardapio(self, prato):
         self._cardapio.append(prato)
 ```
+## Refatoração
+Na classe `Restaurante`, vamos unir os métodos `adicionar_bebida_no_cardapio` e `adicionar_prato_no_cardapio` em um único método que chamaremos de `adicionar_no_cardapio`:
+```Python
+# modelos/restaurante.py
+from modelos.avaliacao import Avaliacao
+from modelos.cardapio.item_cardapio import ItemCardapio
+
+class Restaurante:
+    restaurantes = []
+
+    def __init__(self, nome, categoria):
+        # Resto do código
+        self._cardapio = []
+        # Resto do código
+
+    def adicionar_no_cardapio(self, item):
+        if isinstance(item, ItemCardapio):
+            self._cardapio.append(item)
+```
+> Note o uso da função `isinstance(obj, cls)` no novo método: isso serve para garantir que somente as classes filha de `ItemCardapio` podem ser inseridas no cardápio.
