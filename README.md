@@ -52,3 +52,28 @@ class Prato(ItemCardapio):
         self._descricao = descricao
 ```
 > A função `super()` retorna a classe mãe. Dentro do construtor da classe filha é necessário usar o construtor da classe mãe, usando `super().__init__(parametros)` (note que não foi necessário incluir o parâmetro `self` no construtor da superclasse).
+
+## Acessando os itens do cardápio
+Vamos criar um prato e uma bebida a partir de `app.py`:
+```python
+# Versão simplificada do arquivo `app.py`:
+from modelos.cardapio.bebida import Bebida
+from modelos.cardapio.prato import Prato
+
+bebida_suco = Bebida('Suco de Melancia', 5.0, 'grande')
+prato_paozinho = Prato('Pãozinho', 2.0, 'O melhor pão da cidade')
+
+print(bebida_suco)
+print(prato_paozinho)
+```
+As classes herdarão corretamente da classe `ItemRestaurante` - embora essa classe não tenha sido diretamente importada em `app.py`. No entanto, o formato de string das classes `Bebida` e `Prato` não está legível. Para melhorar a legibilidade, vamos sobrescrever a função `__str__` dessas duas classes:
+```python
+from modelos.cardapio.item_cardapio import ItemCardapio
+
+class Bebida(ItemCardapio): # ou 
+# class Prato(ItemCardapio):
+    # Resto do código
+
+    def __str__(self):
+        return self._nome
+```
