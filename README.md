@@ -117,3 +117,27 @@ class Restaurante:
             self._cardapio.append(item)
 ```
 > Note o uso da função `isinstance(obj, cls)` no novo método: isso serve para garantir que somente as classes filha de `ItemCardapio` podem ser inseridas no cardápio.
+
+## Exibindo o cardápio
+Implementação da função para exibir cardárpio na classe Restaurante: 
+
+```python
+# modelos/restaurante.py
+# Resto do código
+class Restaurante:
+    # Resto do código
+
+    def exibir_cardapio(self):
+        print(f'Cardapio do restaurante "{self._nome}"\n')
+        for i, item in enumerate(self._cardapio, start=1):
+            if hasattr(item, '_descricao'):
+                mensagem_prato = f"{i}. Nome: {item._nome} | Preço: R$ {item._preco:.2f} | Descrição: {item._descricao}"
+                print(mensagem_prato)
+            else:
+                mensagem_bebida = f"{i}. Nome: {item._nome} | Preço: R$ {item._preco:.2f} | Tamanho: {item._tamanho}"
+                print(mensagem_bebida)
+```
+Pontos de destaque: 
+
+1. a função `enumerate` retorna dois valores: um índice do enumerável percorrido e o item enumerado. Essa função recebe o enumerável em si como primeiro parâmetro e o parâmetro opcional `start` (que representa o número do primeiro item listado);
+2. a função `hasattr` testa se o objeto fornecido como parâmetro possui algum atributo com o nome fornecido como segundo parâmetro.
