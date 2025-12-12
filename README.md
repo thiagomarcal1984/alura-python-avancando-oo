@@ -219,3 +219,22 @@ source venv/bin/activate
 Perceba que ao lado do prompt vai aparecer o nome do ambiente virtual entre parênteses. 
 
 Para desativar o ambiente virtual, use o script `deactivate`.
+
+## Criando o Requirements.txt
+Para instalar um pacote Python específico, use o instalador de pacotes pip. Vamos instalar, por exemplo, o módulo `requests`.
+
+```bash
+pip install requests
+```
+
+O comando `pip freeze` mostra as dependências instaladas via pip. Para criar um arquivo de texto com as dependências listadas com `pip freeze`, use uma saída de linha de comando para um arquivo txt: 
+
+```bash
+pip freeze > requirements.txt
+```
+
+É possível instalar módulos a partir de um arquivo de texto, geralmente nomeado como `requirements.txt`. Use a flag `-r` antes do nome do arquivo que vai conter as dependências:
+
+```bash
+pip install -r requirements.txt  
+```
