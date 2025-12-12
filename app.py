@@ -8,7 +8,9 @@ restaurante_praca.receber_avaliacao('Lais', 8)
 restaurante_praca.receber_avaliacao('Emy', 2)
 
 bebida_suco = Bebida('Suco de Melancia', 5.0, 'grande')
+bebida_suco.aplicar_desconto()
 prato_paozinho = Prato('Pãozinho', 2.0, 'O melhor pão da cidade')
+prato_paozinho.aplicar_desconto()
 restaurante_praca.adicionar_no_cardapio(bebida_suco)
 restaurante_praca.adicionar_no_cardapio(prato_paozinho)
 

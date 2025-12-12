@@ -158,3 +158,38 @@ class ItemCardapio(ABC):
     def aplicar_desconto(self):
         pass
 ```
+
+## Polimorfismo
+A subclasse é obrigada a conter uma assinatura do método abstrato, mas isso não significa que o método precisa ser implementado de fato:
+
+```python
+# Exemplo fictício
+class Sobremesa(ItemCardapio):
+    # Resto do código
+    def aplicar_desconto(self):
+        pass
+```
+
+O conceito de polimorfismo significa que diferentes subclasses podem ter métodos com nomes iguais, mas com comportamentos diferentes (muitas formas = polimorfismo). Veja o exemplo das subclasses de `ItemCardapio`:
+
+```python
+# modelos/cardapio/prato.py
+from modelos.cardapio.item_cardapio import ItemCardapio
+
+class Prato(ItemCardapio):
+    # Resto do código
+
+    def aplicar_desconto(self):
+        self._preco -= (self._preco * 0.05)
+
+
+# modelos/cardapio/bebida.py
+from modelos.cardapio.item_cardapio import ItemCardapio
+
+class Bebida(ItemCardapio):
+    # Resto do código
+
+    def aplicar_desconto(self):
+        self._preco -= (self._preco * 0.08)
+```
+As classes `Prato` e `Bebida` tem o mesmo método `aplicar_desconto`, mas cada um tem uma forma/comportamento distinto.
