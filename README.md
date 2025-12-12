@@ -193,3 +193,29 @@ class Bebida(ItemCardapio):
         self._preco -= (self._preco * 0.08)
 ```
 As classes `Prato` e `Bebida` tem o mesmo método `aplicar_desconto`, mas cada um tem uma forma/comportamento distinto.
+
+# Ambientes virtuais
+## Venv - Ambiente Virtual Python
+Comando para criação do ambiente virtual:
+```bash
+python -m venv nome_do_ambiente
+```
+Os diretórios do ambiente virtual são: 
+- include: local onde se guardam os cabeçalhos dos ambientes entre os módulos (cabeçalhos da linguagem C);
+- Lib: contém os módulos Python (instalados via `pip`);
+- Scripts (ou bin, no ambiente Linux): guarda os executáveis usados pelo ambiente virtual.
+- pyvenv.cfg: guarda informações do ambiente (versão do Python, diretório do executável etc.)
+
+Para ativar o ambiente virtual, usamos o script `activate`:
+
+```bash
+.\venv\Scripts\activate
+```
+ou no Linux/Mac: 
+```bash
+source venv/bin/activate
+```
+
+Perceba que ao lado do prompt vai aparecer o nome do ambiente virtual entre parênteses. 
+
+Para desativar o ambiente virtual, use o script `deactivate`.
