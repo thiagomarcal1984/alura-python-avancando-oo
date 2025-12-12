@@ -141,3 +141,20 @@ Pontos de destaque:
 
 1. a função `enumerate` retorna dois valores: um índice do enumerável percorrido e o item enumerado. Essa função recebe o enumerável em si como primeiro parâmetro e o parâmetro opcional `start` (que representa o número do primeiro item listado);
 2. a função `hasattr` testa se o objeto fornecido como parâmetro possui algum atributo com o nome fornecido como segundo parâmetro.
+
+## Métodos abstrato
+O Python usa a superclasse `ABC` para prover funcionalidades de classe abstrata - aquelas cujos objetos só podem ser instanciados se tiver subclasses com implementações específicas. 
+
+Classes que herdam de `ABC` podem definir métodos abstratos (aqueles que não possuem implementação) com a anotação `abstractmethod`. Veja o código do arquivo da classe `ItemCardapio` como exemplo:
+
+```python
+# modelos/cardapio/item_cardapio.py
+from abc import ABC, abstractmethod
+
+class ItemCardapio(ABC):
+    # Resto do código
+
+    @abstractmethod
+    def aplicar_desconto(self):
+        pass
+```
