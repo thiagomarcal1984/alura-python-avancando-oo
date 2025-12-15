@@ -238,3 +238,23 @@ pip freeze > requirements.txt
 ```bash
 pip install -r requirements.txt  
 ```
+# Requisições, JSON e arquivos
+## Requisição
+Reescrevendo o arquivo `app.py` para usar a biblioteca `requests`:
+```python
+import requests
+
+url = 'https://guilhermeonrails.github.io/api-restaurantes/restaurantes.json'
+
+response = requests.get(url)
+
+print(response)
+
+if response.status_code == 200:
+    dados_json = response.json()
+    print(dados_json)
+else:
+    print(f'O erro foi {response.status_code}.')
+```
+1. A biblioteca `requests` tem métodos para os verbos HTTP (incluindo o `get`), que retorna uma resposta/response;
+2. A resposta tem várias propriedades, inclusive o status code (200 para OK ou 404 para não encontrado, dentre outros) e o conteúdo da resposta no formato JSON (usando o método `json` do objeto da resposta).
