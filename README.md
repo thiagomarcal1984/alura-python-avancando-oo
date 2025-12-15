@@ -298,3 +298,21 @@ else:
 # Filtrando apenas os items de restaurante pelo nome do restaurante.
 print(dados_restaurante['McDonald’s'])
 ```
+
+## Criando arquivos com Python
+Para criar arquivos com Python, use o comando com esta sintaxe:
+```python
+# O parâmetro `w` indica permissão para escrita.
+open(nome_arquivo, 'w')
+```
+
+Você pode usar um contexto para abrir e fechar o arquivo usando o comando `with`.
+```python
+import json
+# Resto do código
+for nome_do_restaurante, dados in dados_restaurante.items():
+    nome_do_arquivo =f'{nome_do_restaurante}.json'
+    with open(nome_do_arquivo, 'w') as arquivo_restaurante:
+        json.dump(dados, arquivo_restaurante, indent=4)
+```
+Para escrever dados em formato JSON num arquivo, use a biblioteca `json` e sua função `dump`. Os parâmetros são os dados para escrita e o arquivo (não o nome do arquivo). O parâmetro `indent` é opcional e indica a indentação padrão para cada nível no JSON.
