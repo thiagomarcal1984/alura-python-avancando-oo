@@ -258,3 +258,43 @@ else:
 ```
 1. A biblioteca `requests` tem métodos para os verbos HTTP (incluindo o `get`), que retorna uma resposta/response;
 2. A resposta tem várias propriedades, inclusive o status code (200 para OK ou 404 para não encontrado, dentre outros) e o conteúdo da resposta no formato JSON (usando o método `json` do objeto da resposta).
+
+## Filtrando dados
+```python
+import requests
+
+url = 'https://guilhermeonrails.github.io/api-restaurantes/restaurantes.json'
+
+response = requests.get(url)
+
+print(response)
+
+if response.status_code == 200:
+    # Resposta em JSON.
+    dados_json = response.json()
+
+    # Dicionário cuja chave é o nome do restaurante 
+    # e o valor é a lista com os dados do restaurante.
+    dados_restaurante = {}
+
+    for item in dados_json:
+        nome_do_restaurante = item['Company']
+
+        # Se o restaurante não possuir chave no dicionário, 
+        # é criada uma nova lista associada a essa chave.
+        if nome_do_restaurante not in dados_restaurante:
+            dados_restaurante[nome_do_restaurante] = []
+
+        # Guarda os dados do restaurante na lista associada
+        # à chave do restaurante.
+        dados_restaurante[nome_do_restaurante].append({
+            "item" : item['Item'],
+            "price" : item['price'],
+            "description" : item['description'],
+        })
+else:
+    print(f'O erro foi {response.status_code}.')
+
+# Filtrando apenas os items de restaurante pelo nome do restaurante.
+print(dados_restaurante['McDonald’s'])
+```
