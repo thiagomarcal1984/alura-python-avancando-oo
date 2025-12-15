@@ -351,3 +351,36 @@ uvicorn main:app --reload
 > `main` é o nome do módulo; `app` é o nome do objeto do FastAPI que conterá as rotas.
 
 Depois de rodar o comando com o `uvicorn`, acesse o endpoint criado (no caso seria http://127.0.0.1:8000/api/hello).
+
+## Criando um endpoint
+Código: 
+```python
+from fastapi import FastAPI, Query
+import requests
+
+app = FastAPI()
+
+# Resto do código 
+
+@app.get('/api/restaurantes/')
+def get_restaurantes(restaurante: str = Query(None)):
+    url = 'https://guilhermeonrails.github.io/api-restaurantes/restaurantes.json'
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        dados_json = response.json()
+        if restaurante is None:
+            return dados_json
+        dados_restaurante = []
+        for item in dados_json:
+            if item['Company'].lower() == restaurante.lower():
+                dados_restaurante.append({
+                    "item" : item['Item'],
+                    "price" : item['price'],
+                    "description" : item['description'],
+                })
+        return {'Restaurante' : restaurante, 'Dados': dados_restaurante}
+    else:
+        return {"Erro": f"{response.status_code} - {response.text}"}
+```
+Testando a aplicação rapidamente, a rota para um restaurante específico não funciona, mas a rota geral funciona.
