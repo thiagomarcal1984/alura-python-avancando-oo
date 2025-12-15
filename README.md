@@ -384,3 +384,26 @@ def get_restaurantes(restaurante: str = Query(None)):
         return {"Erro": f"{response.status_code} - {response.text}"}
 ```
 Testando a aplicação rapidamente, a rota para um restaurante específico não funciona, mas a rota geral funciona.
+
+## Consultando um endpoint
+O teste anterior falhou porque fornecemos uma URL sem variáveis de URL precedidas de sinal de interrogação.
+
+Por exemplo: para visualizarmos os itens de cardápio do restaurante KFC, usamos a seguinte URL: http://127.0.0.1:8000/api/restaurantes/?restaurante=KFC . Note que depois do endpoint acrescentamos um `?restaurante=KFC`. Note também que o nome da variável `restaurante` na URL é o mesmo que é fornecido como parâmetro para a função `get_restaurantes` e que usa como tipo uma `Query(None)`.
+
+Existe uma rota no FastAPI que serve como documentação da API: http://127.0.0.1:8000/docs . O endpoint `docs` mostra os endpoints que há na API e suas respectivas docstrings.
+
+Exemplo de enpdoint com docstring:
+
+```python
+from fastapi import FastAPI, Query
+import requests
+
+app = FastAPI()
+
+@app.get("/api/hello")
+def hello_world():
+    '''
+    Endpoint que exibe uma mensagem de boas-vindas.
+    '''
+    return {"Hello": "World"}
+```
