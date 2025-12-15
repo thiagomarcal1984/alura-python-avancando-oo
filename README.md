@@ -316,3 +316,38 @@ for nome_do_restaurante, dados in dados_restaurante.items():
         json.dump(dados, arquivo_restaurante, indent=4)
 ```
 Para escrever dados em formato JSON num arquivo, use a biblioteca `json` e sua função `dump`. Os parâmetros são os dados para escrita e o arquivo (não o nome do arquivo). O parâmetro `indent` é opcional e indica a indentação padrão para cada nível no JSON.
+
+# FastAPI
+## Usando o FastAPI
+Primeiramente vamos instalar o FastAPI:
+
+```bash
+pip install fastapi uvicorn
+```
+O uvicorn provê um servidor de aplicações onde o FastAPI vai rodar.
+
+Vamos atualizar o arquivo `requirements.txt`:
+```bash
+pip freeze > requirements.txt
+```
+
+Segue a implementação básica do FastAPI:
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/api/hello")
+def hello_world():
+    return {"Hello": "World"}
+```
+> Note a semelhança com a sintaxe do Flask: o objeto `app` contém um método `get` que é usado como anotação da função `hello_world`. O retorno é um dicionário - que acaba virando um JSON.
+
+
+Para rodar a aplicação, use o comando abaixo do `uvicorn`:
+```bash
+uvicorn main:app --reload
+```
+> `main` é o nome do módulo; `app` é o nome do objeto do FastAPI que conterá as rotas.
+
+Depois de rodar o comando com o `uvicorn`, acesse o endpoint criado (no caso seria http://127.0.0.1:8000/api/hello).
